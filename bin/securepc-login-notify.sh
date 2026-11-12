@@ -106,46 +106,46 @@ fi
 # SECTION 1: CRITICAL BLOCKED TRAFFIC ALERTS (CHINA / RUSSIA / IRAN / MIDDLE EAST)
 # ------------------------------------------------------------------------------
 if [ "${UNREAD_COUNT}" -gt 0 ] && [ -r "${UNREAD_LOG}" ]; then
-    printf "${RED}===================================================================================================================================================${RESET}\n"
-    printf "${RED}  [!] SECUREPC CRITICAL FIREWALL ALERT — BLOCKED THREAT TRAFFIC DETECTED (China / Russia / Iran / Middle East / DoH Bypass)${RESET}\n"
-    printf "${YELLOW}  Blocked Regions:${RESET} China (${BOLD}*.cn, Beijing, aliyuncs${RESET}), Russia (${BOLD}*.ru, *.su, .рф${RESET}), Iran (${BOLD}*.ir${RESET}) & Middle East (${BOLD}16 Countries${RESET})\n"
-    printf "${YELLOW}  Unread Alerts:${RESET} ${RED}${BOLD}%s${RESET}  |  ${YELLOW}Total Attributed Blocks:${RESET} ${BOLD}%s${RESET}  |  ${YELLOW}Kernel Log Drops:${RESET} ${BOLD}%s${RESET}\n" "${UNREAD_COUNT}" "${TOTAL_BLK_COUNT}" "${KERN_COUNT}"
-    printf "${RED}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
+    printf -- "${RED}===================================================================================================================================================${RESET}\n"
+    printf -- "${RED}  [!] SECUREPC CRITICAL FIREWALL ALERT — BLOCKED THREAT TRAFFIC DETECTED (China / Russia / Iran / Middle East / DoH Bypass)${RESET}\n"
+    printf -- "${YELLOW}  Blocked Regions:${RESET} China (${BOLD}*.cn, Beijing, aliyuncs${RESET}), Russia (${BOLD}*.ru, *.su, .рф${RESET}), Iran (${BOLD}*.ir${RESET}) & Middle East (${BOLD}16 Countries${RESET})\n"
+    printf -- "${YELLOW}  Unread Alerts:${RESET} ${RED}${BOLD}%s${RESET}  |  ${YELLOW}Total Attributed Blocks:${RESET} ${BOLD}%s${RESET}  |  ${YELLOW}Kernel Log Drops:${RESET} ${BOLD}%s${RESET}\n" "${UNREAD_COUNT}" "${TOTAL_BLK_COUNT}" "${KERN_COUNT}"
+    printf -- "${RED}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
     tail -n 10 "${UNREAD_LOG}" | sed 's/^/  /'
-    printf "${RED}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
-    printf "  ${GREEN}Acknowledge Alerts:${RESET} Run '${BOLD}sudo securepc-ctl ack${RESET}' to clear unread alert queues\n"
-    printf "${RED}===================================================================================================================================================${RESET}\n\n"
+    printf -- "${RED}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
+    printf -- "  ${GREEN}Acknowledge Alerts:${RESET} Run '${BOLD}sudo securepc ack${RESET}' to clear unread alert queues\n"
+    printf -- "${RED}===================================================================================================================================================${RESET}\n\n"
 fi
 
 # ------------------------------------------------------------------------------
 # SECTION 2: FIRST-LOGIN NON-US DESTINATION FLAGS
 # ------------------------------------------------------------------------------
 if [ "${SHOW_NON_US_COUNT}" -gt 0 ] && [ -r "${UNREAD_NON_US_LOG}" ]; then
-    printf "${MAGENTA}===================================================================================================================================================${RESET}\n"
-    printf "${MAGENTA}  [⚑] SECUREPC FIRST-LOGIN NON-US TRAFFIC FLAG — %s NEW FOREIGN CONNECTION(S) DETECTED${RESET}\n" "${SHOW_NON_US_COUNT}"
-    printf "${MAGENTA}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
+    printf -- "${MAGENTA}===================================================================================================================================================${RESET}\n"
+    printf -- "${MAGENTA}  [⚑] SECUREPC FIRST-LOGIN NON-US TRAFFIC FLAG — %s NEW FOREIGN CONNECTION(S) DETECTED${RESET}\n" "${SHOW_NON_US_COUNT}"
+    printf -- "${MAGENTA}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
     sed -n "${NEW_NON_US_START},\$p" "${UNREAD_NON_US_LOG}" | tail -n 8 | sed 's/^/  /'
-    printf "${MAGENTA}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
-    printf "  ${GREEN}Inspect:${RESET} '${BOLD}securepc-ctl non-us${RESET}'  |  ${GREEN}Clear System Queue:${RESET} '${BOLD}sudo securepc-ctl ack${RESET}'\n"
-    printf "${MAGENTA}===================================================================================================================================================${RESET}\n\n"
+    printf -- "${MAGENTA}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
+    printf -- "  ${GREEN}Inspect:${RESET} '${BOLD}securepc non-us${RESET}'  |  ${GREEN}Clear System Queue:${RESET} '${BOLD}sudo securepc ack${RESET}'\n"
+    printf -- "${MAGENTA}===================================================================================================================================================${RESET}\n\n"
 fi
 
 # ------------------------------------------------------------------------------
 # SECTION 3: OUTBOUND INTERNET CONNECTIONS SUMMARY (ALL TRAFFIC)
 # ------------------------------------------------------------------------------
 HOST_UPPER="$(hostname -s 2>/dev/null | tr '[:lower:]' '[:upper:]' || echo "HOST")"
-printf "${BLUE}===================================================================================================================================================${RESET}\n"
-printf "${CYAN}  [*] %s OUTBOUND INTERNET TRAFFIC MONITOR (Country, PID/PPID, Service/Software, Outbound IP, Port & OpenSSL Cert Domain)${RESET}\n" "${HOST_UPPER}"
-printf "  ${YELLOW}Total Logged Outbound Internet Events:${RESET} ${BOLD}%s${RESET}  |  ${YELLOW}Blocked Threats:${RESET} ${BOLD}%s${RESET} (Unread: ${RED}%s${RESET})\n" "${OUTBOUND_COUNT}" "${TOTAL_BLK_COUNT}" "${UNREAD_COUNT}"
-printf "${BLUE}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
+printf -- "${BLUE}===================================================================================================================================================${RESET}\n"
+printf -- "${CYAN}  [*] %s OUTBOUND INTERNET TRAFFIC MONITOR (Country, PID/PPID, Service/Software, Outbound IP, Port & OpenSSL Cert Domain)${RESET}\n" "${HOST_UPPER}"
+printf -- "  ${YELLOW}Total Logged Outbound Internet Events:${RESET} ${BOLD}%s${RESET}  |  ${YELLOW}Blocked Threats:${RESET} ${BOLD}%s${RESET} (Unread: ${RED}%s${RESET})\n" "${OUTBOUND_COUNT}" "${TOTAL_BLK_COUNT}" "${UNREAD_COUNT}"
+printf -- "${BLUE}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
 
 if [ -r "${OUTBOUND_SUMMARY}" ] && [ -s "${OUTBOUND_SUMMARY}" ]; then
     head -n 16 "${OUTBOUND_SUMMARY}" | sed 's/^/  /'
 else
-    printf "  No outbound internet connections recorded yet in current summary window.\n"
+    printf -- "  No outbound internet connections recorded yet in current summary window.\n"
 fi
 
-printf "${BLUE}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
-printf "  ${GREEN}Logs:${RESET}     /var/log/securepc/outbound-internet.log  |  /var/log/securepc/blocked-alerts.log\n"
-printf "  ${GREEN}Commands:${RESET} '${BOLD}securepc-ctl status${RESET}' | '${BOLD}securepc-ctl doctor${RESET}' | '${BOLD}securepc-ctl lookup <TARGET>${RESET}' | '${BOLD}securepc-ctl cert <IP>${RESET}'\n"
-printf "${BLUE}===================================================================================================================================================${RESET}\n\n"
+printf -- "${BLUE}---------------------------------------------------------------------------------------------------------------------------------------------------${RESET}\n"
+printf -- "  ${GREEN}Logs:${RESET}     /var/log/securepc/outbound-internet.log  |  /var/log/securepc/blocked-alerts.log\n"
+printf -- "  ${GREEN}Commands:${RESET} '${BOLD}securepc status${RESET}' | '${BOLD}securepc doctor${RESET}' | '${BOLD}securepc lookup <TARGET>${RESET}' | '${BOLD}securepc cert <IP>${RESET}'\n"
+printf -- "${BLUE}===================================================================================================================================================${RESET}\n\n"

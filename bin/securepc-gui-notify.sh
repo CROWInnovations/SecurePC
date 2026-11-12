@@ -20,7 +20,7 @@ if [ -r "${UNREAD_LOG}" ] && [ -s "${UNREAD_LOG}" ]; then
     LATEST="$(tail -n 3 "${UNREAD_LOG}" 2>/dev/null)"
     notify-send -u critical -i security-high \
         "SecurePC — ${COUNT} Blocked Threat Attempt(s)" \
-        "${META_HDR}\n\nBlocked traffic to CN / RU / IR / Middle East (run 'sudo securepc-ctl ack' to clear):\n${LATEST}" 2>/dev/null || true
+        "${META_HDR}\n\nBlocked traffic to CN / RU / IR / Middle East (run 'sudo securepc ack' to clear):\n${LATEST}" 2>/dev/null || true
 fi
 
 if [ -r "${UNREAD_NON_US_LOG}" ] && [ -s "${UNREAD_NON_US_LOG}" ]; then
@@ -44,7 +44,7 @@ if [ -r "${UNREAD_NON_US_LOG}" ] && [ -s "${UNREAD_NON_US_LOG}" ]; then
         NLATEST="$(tail -n 3 "${UNREAD_NON_US_LOG}" 2>/dev/null)"
         notify-send -u normal -i dialog-warning \
             "SecurePC — ${NEW_N} New Non-US Connection(s) Flagged" \
-            "${META_HDR}\n\nTraffic outside US observed (run 'securepc-ctl non-us'):\n${NLATEST}" 2>/dev/null || true
+            "${META_HDR}\n\nTraffic outside US observed (run 'securepc non-us'):\n${NLATEST}" 2>/dev/null || true
         if [ -n "${HOME:-}" ] && [ -d "${HOME}" ]; then
             mkdir -p "${CURSOR_DIR}" 2>/dev/null || true
             chmod 0700 "${CURSOR_DIR}" 2>/dev/null || true

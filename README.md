@@ -22,28 +22,28 @@ cd SecurePC
 sudo ./install.sh
 ```
 
-## Usage (`securepc-ctl`)
+## Usage (`securepc`)
 
 ```bash
-securepc-ctl doctor                 # Verify firewall, daemon, NFQUEUE, policies & permissions
-securepc-ctl status                 # View active backend, set counters & service status
-securepc-ctl outbound               # View recent outbound internet connections
-securepc-ctl non-us                 # View flagged Non-US connections
-securepc-ctl blocked                # View blocked connection attempts
-securepc-ctl lookup <TARGET>        # Attribute traffic by domain, IP, program, or PID
-securepc-ctl cert <IP> [PORT]       # Inspect RIR GeoIP & OpenSSL X.509 certificate for an IP
-securepc-ctl banner                 # Preview interactive login summary
+securepc doctor                     # Verify firewall, daemon, NFQUEUE, policies & permissions
+securepc status                     # View active backend, set counters & service status
+securepc outbound                   # View recent outbound internet connections
+securepc non-us                     # View flagged Non-US connections
+securepc blocked                    # View blocked connection attempts
+securepc lookup <TARGET>            # Attribute traffic by domain, IP, program, or PID
+securepc cert <IP> [PORT]           # Inspect RIR GeoIP & OpenSSL X.509 certificate for an IP
+securepc banner                     # Preview interactive login summary (alias: login-banner)
 
-sudo securepc-ctl allow <CIDR>      # Add IP/CIDR to /etc/securepc/allowlist-ips.txt
-sudo securepc-ctl block <TARGET>    # Block custom IP/CIDR or domain suffix
-sudo securepc-ctl ack               # Clear unread alert queues
-sudo securepc-ctl update-lists      # Refresh RIR GeoIP & ASN CIDR lists
-sudo securepc-ctl reload            # Reload firewall rules, policies & daemon
+sudo securepc allow <CIDR>          # Add IP/CIDR to /etc/securepc/allowlist-ips.txt
+sudo securepc block <TARGET>        # Block custom IP/CIDR or domain suffix
+sudo securepc ack                   # Clear unread alert queues
+sudo securepc update-lists          # Refresh RIR GeoIP & ASN CIDR lists
+sudo securepc reload                # Reload firewall rules, policies & daemon
 ```
 
 ## Configuration
 
-Edit `/etc/securepc/securepc.conf` (and `/etc/securepc/{allowlist-ips,blocklist-ips,blocklist-domains}.txt`), then run `sudo securepc-ctl reload`:
+Edit `/etc/securepc/securepc.conf` (and `/etc/securepc/{allowlist-ips,blocklist-ips,blocklist-domains}.txt`), then run `sudo securepc reload`:
 
 - `FIREWALL_BACKEND="auto"` (`auto`, `nftables`, `iptables`, `solaris_ipf`)
 - `OUTBOUND_BLOCK_ACTION="reject"` (`reject` or `drop`)

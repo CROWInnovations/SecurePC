@@ -11,7 +11,7 @@
 #   3. Removes nftables 'table inet securepc' AND any iptables/ip6tables/ipset rules
 #   4. Removes managed browser DoH/ECH policy drop-ins (restoring Firefox backups)
 #   5. Removes rsyslog, logrotate, profile.d & Desktop GUI login hooks
-#   6. Removes /usr/local/lib/securepc & /usr/local/bin/securepc-ctl
+#   6. Removes /usr/local/lib/securepc & /usr/local/bin/securepc
 #   7. Preserves /var/log/securepc & /etc/securepc by default (or purges with --purge)
 # ==============================================================================
 set -euo pipefail
@@ -117,7 +117,7 @@ echo "==> [1/8] Stopping and removing systemd units (monitor, firewall, GeoIP ti
 if [ "${DRY_RUN}" -eq 1 ]; then
     echo "  [dry-run] Stop/disable/remove securepc-{monitor.service,firewall.service,geoip-update.timer,geoip-update.service}"
 else
-    for unit in securepc-geoip-update.timer securepc-geoip-update.service securepc-monitor.service securepc-firewall.service; do
+    for unit in securepc-geoip-update.timer securepc-geoip-update.service securepc-monitor.service securepc-firewall.service securepc.service securepc-daemon.service; do
         systemctl stop "${unit}" 2>/dev/null || true
         systemctl disable "${unit}" 2>/dev/null || true
         rm -f "/etc/systemd/system/${unit}"
@@ -176,6 +176,8 @@ for hook in \
     /etc/rsyslog.d/10-securepc.conf \
     /etc/logrotate.d/securepc \
     /etc/profile.d/securepc-login-notify.sh \
+    /etc/profile.d/securepc.sh \
+    /etc/profile.d/securepc-banner.sh \
     /etc/update-motd.d/99-securepc-alerts; do
     if [ -e "${hook}" ] || [ -L "${hook}" ]; then
         run_step rm -f "${hook}"
@@ -197,9 +199,18 @@ fi
 echo "==> [6/8] Removing CLI symlinks..."
 for link_cand in \
     /usr/local/bin/securepc-ctl \
+    /usr/local/bin/securepc \
+    /usr/sbin/securepc \
+    /usr/bin/securepc \
+    /usr/local/sbin/securepc \
     "${TARGET_HOME:+${TARGET_HOME}/bin/securepc-ctl}" \
-    "${TARGET_HOME:+${TARGET_HOME}/.local/bin/securepc-ctl}"; do
-    if [ -n "${link_cand}" ] && [ -L "${link_cand}" ]; then
+    "${TARGET_HOME:+${TARGET_HOME}/bin/securepc}" \
+    "${TARGET_HOME:+${TARGET_HOME}/.local/bin/securepc-ctl}" \
+    "${TARGET_HOME:+${TARGET_HOME}/.local/bin/securepc}"; do
+    [ -n "${link_cand}" ] || continue
+    if [ -L "${link_cand}" ]; then
+        run_step rm -f "${link_cand}"
+    elif [ -f "${link_cand}" ] && grep -qE 'securepc\.cli|SecurePC|securepc-ctl' "${link_cand}" 2>/dev/null; then
         run_step rm -f "${link_cand}"
     fi
 done
