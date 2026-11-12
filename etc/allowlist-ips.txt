@@ -1,0 +1,6 @@
+# ==============================================================================
+# SecurePC — Custom Allowed IPv4 / IPv6 Addresses & CIDRs
+# Location: /etc/securepc/allowlist-ips.txt
+# One IP or CIDR per line. Comments (#) and blank lines are ignored.
+# Reload after editing: sudo securepc-ctl reload
+# ==============================================================================

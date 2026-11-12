@@ -1,0 +1,19 @@
+# Runtime logs, caches, and host-specific state (never commit traffic logs)
+logs/
+rules/
+*.log
+*.jsonl
+openssl-cert-cache.json
+
+# Python bytecode & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Secrets & local environment overrides
+.env
+.env.*
+*.pem
+*.key

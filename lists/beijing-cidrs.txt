@@ -1,0 +1,447 @@
+# SecurePC — Beijing Associated IPv4 Addresses & CIDR Ranges
+# Generated: 2026-11-11 17:01:09 UTC
+# Total CIDR Blocks: 443
+
+1.2.0.0/16           # Beijing ASN / Regional CIDR Allocation
+1.51.0.0/16          # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+1.119.0.0/16         # Beijing ASN / Regional CIDR Allocation
+1.184.0.0/15         # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+27.36.0.0/14         # China Unicom IP Network China169 Beijing (AS17816)
+27.40.0.0/13         # China Unicom IP Network China169 Beijing (AS17816)
+36.20.0.0/16         # Beijing ASN / Regional CIDR Allocation
+36.25.0.0/16         # Beijing ASN / Regional CIDR Allocation
+36.26.0.0/15         # Beijing ASN / Regional CIDR Allocation
+36.134.0.0/16        # Beijing ASN / Regional CIDR Allocation
+36.137.0.0/16        # Beijing ASN / Regional CIDR Allocation
+36.138.0.0/15        # Beijing ASN / Regional CIDR Allocation
+36.140.0.0/16        # Beijing ASN / Regional CIDR Allocation
+36.149.0.0/16        # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+36.150.0.0/15        # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+36.152.0.0/14        # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+36.156.0.0/16        # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+36.163.0.0/16        # Beijing ASN / Regional CIDR Allocation
+36.206.0.0/16        # Beijing ASN / Regional CIDR Allocation
+36.213.0.0/16        # Beijing ASN / Regional CIDR Allocation
+36.221.0.0/16        # Beijing ASN / Regional CIDR Allocation
+39.96.0.0/13         # Alibaba Cloud cn-beijing Region (AS37963)
+39.134.0.0/15        # Beijing ASN / Regional CIDR Allocation
+39.136.0.0/15        # Beijing ASN / Regional CIDR Allocation
+39.143.0.0/16        # Beijing ASN / Regional CIDR Allocation
+39.144.0.0/16        # Beijing ASN / Regional CIDR Allocation
+42.83.0.0/16         # Beijing ASN / Regional CIDR Allocation
+42.199.0.0/16        # Beijing ASN / Regional CIDR Allocation
+42.244.0.0/14        # Beijing ASN / Regional CIDR Allocation
+43.196.0.0/16        # Beijing ASN / Regional CIDR Allocation
+43.224.0.0/14        # Beijing ASN / Regional CIDR Allocation
+43.228.0.0/16        # Beijing ASN / Regional CIDR Allocation
+43.231.0.0/16        # Beijing ASN / Regional CIDR Allocation
+43.240.0.0/15        # Beijing ASN / Regional CIDR Allocation
+43.243.0.0/16        # Beijing ASN / Regional CIDR Allocation
+43.247.0.0/16        # Beijing ASN / Regional CIDR Allocation
+43.248.0.0/16        # Beijing ASN / Regional CIDR Allocation
+43.254.0.0/15        # Beijing ASN / Regional CIDR Allocation
+45.113.0.0/16        # Beijing ASN / Regional CIDR Allocation
+45.124.0.0/16        # Beijing ASN / Regional CIDR Allocation
+45.127.0.0/16        # Beijing ASN / Regional CIDR Allocation
+45.250.0.0/16        # Beijing ASN / Regional CIDR Allocation
+45.254.0.0/16        # Beijing ASN / Regional CIDR Allocation
+49.4.0.0/16          # Beijing ASN / Regional CIDR Allocation
+49.52.0.0/14         # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+49.120.0.0/14        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+49.140.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+49.208.0.0/14        # Beijing ASN / Regional CIDR Allocation
+49.239.0.0/16        # Beijing ASN / Regional CIDR Allocation
+54.222.0.0/16        # Beijing ASN / Regional CIDR Allocation
+58.68.0.0/16         # Beijing ASN / Regional CIDR Allocation
+58.154.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+58.192.0.0/12        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+58.248.0.0/13        # China Unicom IP Network China169 Beijing (AS17816)
+59.64.0.0/12         # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+59.110.0.0/16        # Alibaba Cloud cn-beijing Region (AS37963)
+60.188.0.0/16        # Beijing ASN / Regional CIDR Allocation
+60.190.0.0/15        # Beijing ASN / Regional CIDR Allocation
+60.194.0.0/15        # Beijing ASN / Regional CIDR Allocation
+60.205.0.0/16        # Alibaba Cloud cn-beijing Region (AS37963)
+60.206.0.0/15        # Beijing ASN / Regional CIDR Allocation
+60.245.0.0/16        # Beijing ASN / Regional CIDR Allocation
+60.253.0.0/16        # Beijing ASN / Regional CIDR Allocation
+61.48.0.0/13         # China Unicom Beijing (AS4808)
+61.130.0.0/16        # Beijing ASN / Regional CIDR Allocation
+61.135.0.0/16        # China Unicom Beijing IDC (AS4808)
+61.148.0.0/15        # China Unicom Beijing (AS4808)
+61.153.0.0/16        # Beijing ASN / Regional CIDR Allocation
+61.164.0.0/16        # Beijing ASN / Regional CIDR Allocation
+61.174.0.0/16        # Beijing ASN / Regional CIDR Allocation
+61.242.0.0/16        # Beijing ASN / Regional CIDR Allocation
+71.18.0.0/16         # Beijing ASN / Regional CIDR Allocation
+101.4.0.0/14         # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+101.45.0.0/16        # Beijing ASN / Regional CIDR Allocation
+101.52.0.0/16        # Beijing ASN / Regional CIDR Allocation
+101.76.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+101.124.0.0/15       # Beijing ASN / Regional CIDR Allocation
+101.199.0.0/16       # Beijing ASN / Regional CIDR Allocation
+101.200.0.0/15       # Alibaba Cloud cn-beijing Region (AS37963)
+101.236.0.0/15       # Beijing ASN / Regional CIDR Allocation
+101.251.0.0/16       # Beijing ASN / Regional CIDR Allocation
+101.252.0.0/15       # Computer Network Information Center, Chinese Academy of Sciences (CSTNET - Beijing) (AS7497)
+101.254.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.2.0.0/15         # Beijing ASN / Regional CIDR Allocation
+103.10.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.19.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.25.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.27.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.29.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.30.0.0/15        # Beijing ASN / Regional CIDR Allocation
+103.37.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.38.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.43.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.44.0.0/14        # Beijing ASN / Regional CIDR Allocation
+103.53.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.60.0.0/15        # Beijing ASN / Regional CIDR Allocation
+103.72.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.76.0.0/15        # Beijing ASN / Regional CIDR Allocation
+103.79.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.82.0.0/15        # Beijing ASN / Regional CIDR Allocation
+103.85.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.87.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.90.0.0/15        # Beijing ASN / Regional CIDR Allocation
+103.93.0.0/16        # Beijing ASN / Regional CIDR Allocation
+103.100.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.102.0.0/15       # Beijing ASN / Regional CIDR Allocation
+103.107.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.118.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.120.0.0/15       # Beijing ASN / Regional CIDR Allocation
+103.131.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.135.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.136.0.0/15       # Beijing ASN / Regional CIDR Allocation
+103.141.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.142.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.146.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.151.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.155.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.162.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.192.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.196.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.198.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.205.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.213.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.219.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.228.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.230.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.233.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.234.0.0/15       # Beijing ASN / Regional CIDR Allocation
+103.237.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.238.0.0/15       # Beijing ASN / Regional CIDR Allocation
+103.242.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.244.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.248.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.251.0.0/16       # Beijing ASN / Regional CIDR Allocation
+103.252.0.0/16       # Beijing ASN / Regional CIDR Allocation
+104.193.0.0/16       # Beijing ASN / Regional CIDR Allocation
+106.3.0.0/16         # Beijing ASN / Regional CIDR Allocation
+106.12.0.0/15        # Beijing ASN / Regional CIDR Allocation
+106.37.0.0/16        # China Telecom Beijing (AS4847)
+106.38.0.0/15        # China Telecom Beijing (AS4847)
+106.74.0.0/15        # Beijing ASN / Regional CIDR Allocation
+106.120.0.0/16       # China Unicom Beijing (AS4808)
+110.64.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+110.100.0.0/16       # Beijing ASN / Regional CIDR Allocation
+110.116.0.0/16       # Beijing ASN / Regional CIDR Allocation
+110.199.0.0/16       # Beijing ASN / Regional CIDR Allocation
+110.218.0.0/15       # Beijing ASN / Regional CIDR Allocation
+110.242.0.0/16       # Beijing ASN / Regional CIDR Allocation
+111.13.0.0/16        # China Mobile Beijing (AS56046)
+111.14.0.0/15        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+111.16.0.0/15        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+111.34.0.0/15        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+111.36.0.0/15        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+111.55.0.0/16        # Beijing ASN / Regional CIDR Allocation
+111.63.0.0/16        # Beijing ASN / Regional CIDR Allocation
+111.114.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+111.116.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+111.186.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+111.192.0.0/11       # China Unicom Beijing (AS4808)
+112.0.0.0/14         # Beijing ASN / Regional CIDR Allocation
+112.4.0.0/16         # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+112.6.0.0/15         # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+112.8.0.0/15         # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+112.20.0.0/14        # Beijing ASN / Regional CIDR Allocation
+112.24.0.0/15        # Beijing ASN / Regional CIDR Allocation
+112.36.0.0/15        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+112.38.0.0/16        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+112.53.0.0/16        # Beijing ASN / Regional CIDR Allocation
+112.54.0.0/16        # Beijing ASN / Regional CIDR Allocation
+112.88.0.0/13        # China Unicom IP Network China169 Beijing (AS17816)
+112.96.0.0/15        # China Unicom IP Network China169 Beijing (AS17816)
+113.54.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+113.208.0.0/15       # Beijing ASN / Regional CIDR Allocation
+114.66.0.0/15        # Beijing ASN / Regional CIDR Allocation
+114.112.0.0/14       # Beijing Telecom / IDC (AS4847)
+114.116.0.0/16       # Beijing ASN / Regional CIDR Allocation
+114.118.0.0/16       # Beijing ASN / Regional CIDR Allocation
+114.212.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+114.214.0.0/16       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+114.240.0.0/12       # China Unicom Beijing (AS4808)
+115.24.0.0/14        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+115.154.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+115.156.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+115.158.0.0/16       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+115.180.0.0/16       # Beijing ASN / Regional CIDR Allocation
+115.182.0.0/15       # Beijing ASN / Regional CIDR Allocation
+115.220.0.0/16       # Beijing ASN / Regional CIDR Allocation
+115.227.0.0/16       # Beijing ASN / Regional CIDR Allocation
+115.228.0.0/16       # Beijing ASN / Regional CIDR Allocation
+115.230.0.0/15       # Beijing ASN / Regional CIDR Allocation
+115.233.0.0/16       # Beijing ASN / Regional CIDR Allocation
+115.236.0.0/16       # Beijing ASN / Regional CIDR Allocation
+115.238.0.0/15       # Beijing ASN / Regional CIDR Allocation
+116.13.0.0/16        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+116.56.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+116.63.0.0/16        # Beijing ASN / Regional CIDR Allocation
+116.70.0.0/16        # Beijing ASN / Regional CIDR Allocation
+116.90.0.0/16        # Beijing ASN / Regional CIDR Allocation
+116.193.0.0/16       # Beijing ASN / Regional CIDR Allocation
+116.196.0.0/16       # Beijing ASN / Regional CIDR Allocation
+116.198.0.0/16       # Beijing ASN / Regional CIDR Allocation
+116.242.0.0/16       # Beijing ASN / Regional CIDR Allocation
+117.48.0.0/16        # Beijing ASN / Regional CIDR Allocation
+117.50.0.0/16        # Beijing ASN / Regional CIDR Allocation
+117.72.0.0/15        # Beijing ASN / Regional CIDR Allocation
+117.79.0.0/16        # Beijing ASN / Regional CIDR Allocation
+117.122.0.0/16       # Beijing ASN / Regional CIDR Allocation
+117.132.0.0/16       # Beijing ASN / Regional CIDR Allocation
+117.136.0.0/16       # Beijing ASN / Regional CIDR Allocation
+118.26.0.0/16        # Beijing ASN / Regional CIDR Allocation
+118.103.0.0/16       # Beijing ASN / Regional CIDR Allocation
+118.144.0.0/16       # Beijing ASN / Regional CIDR Allocation
+118.186.0.0/15       # Beijing Gehua CATV (AS24444)
+118.194.0.0/16       # Beijing ASN / Regional CIDR Allocation
+118.202.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+118.204.0.0/16       # Beijing ASN / Regional CIDR Allocation
+118.228.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+118.230.0.0/16       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+118.244.0.0/16       # Beijing ASN / Regional CIDR Allocation
+118.247.0.0/16       # China Unicom Beijing Province Network (CHINA169-BJ) (AS4808)
+119.63.0.0/16        # Beijing ASN / Regional CIDR Allocation
+119.75.0.0/16        # Beijing ASN / Regional CIDR Allocation
+119.78.0.0/15        # Computer Network Information Center, Chinese Academy of Sciences (CSTNET - Beijing) (AS7497)
+119.80.0.0/16        # Beijing ASN / Regional CIDR Allocation
+119.161.0.0/16       # Beijing ASN / Regional CIDR Allocation
+119.253.0.0/16       # CNNIC / Beijing IDC
+120.48.0.0/15        # Beijing ASN / Regional CIDR Allocation
+120.52.0.0/16        # Beijing ASN / Regional CIDR Allocation
+120.80.0.0/13        # China Unicom IP Network China169 Beijing (AS17816)
+120.94.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+120.132.0.0/15       # Beijing ASN / Regional CIDR Allocation
+120.136.0.0/16       # Beijing ASN / Regional CIDR Allocation
+120.192.0.0/16       # Beijing ASN / Regional CIDR Allocation
+120.195.0.0/16       # Beijing ASN / Regional CIDR Allocation
+120.220.0.0/14       # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+120.224.0.0/15       # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+121.46.0.0/16        # Beijing ASN / Regional CIDR Allocation
+121.48.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+121.52.0.0/16        # Beijing ASN / Regional CIDR Allocation
+121.58.0.0/16        # Beijing ASN / Regional CIDR Allocation
+121.69.0.0/16        # Beijing ASN / Regional CIDR Allocation
+121.70.0.0/16        # Beijing ASN / Regional CIDR Allocation
+121.192.0.0/14       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+121.248.0.0/14       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+122.9.0.0/16         # Beijing ASN / Regional CIDR Allocation
+122.11.0.0/16        # Beijing ASN / Regional CIDR Allocation
+122.13.0.0/16        # China Unicom IP Network China169 Beijing (AS17816)
+122.14.0.0/16        # Beijing ASN / Regional CIDR Allocation
+122.94.0.0/16        # Beijing ASN / Regional CIDR Allocation
+122.115.0.0/16       # Beijing ASN / Regional CIDR Allocation
+122.200.0.0/16       # Beijing ASN / Regional CIDR Allocation
+122.204.0.0/14       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+122.224.0.0/15       # Beijing ASN / Regional CIDR Allocation
+122.229.0.0/16       # Beijing ASN / Regional CIDR Allocation
+122.237.0.0/16       # Beijing ASN / Regional CIDR Allocation
+123.56.0.0/15        # Alibaba Cloud cn-beijing Region (AS37963)
+123.59.0.0/16        # Beijing ASN / Regional CIDR Allocation
+123.77.0.0/16        # Beijing ASN / Regional CIDR Allocation
+123.99.0.0/16        # Beijing ASN / Regional CIDR Allocation
+123.103.0.0/16       # Beijing ASN / Regional CIDR Allocation
+123.108.0.0/16       # Beijing ASN / Regional CIDR Allocation
+123.112.0.0/12       # China Unicom Beijing (AS4808)
+124.14.0.0/16        # Beijing ASN / Regional CIDR Allocation
+124.16.0.0/15        # Computer Network Information Center, Chinese Academy of Sciences (CSTNET - Beijing) (AS7497)
+124.42.0.0/16        # Beijing ASN / Regional CIDR Allocation
+124.64.0.0/15        # China Unicom Beijing (AS4808)
+124.126.0.0/15       # China Telecom Beijing (AS4847)
+124.192.0.0/15       # Beijing ASN / Regional CIDR Allocation
+124.200.0.0/13       # China Telecom Beijing (AS4847)
+124.237.0.0/16       # Beijing ASN / Regional CIDR Allocation
+124.240.0.0/16       # Beijing ASN / Regional CIDR Allocation
+124.248.0.0/16       # Beijing ASN / Regional CIDR Allocation
+124.251.0.0/16       # Beijing ASN / Regional CIDR Allocation
+124.254.0.0/16       # Beijing ASN / Regional CIDR Allocation
+125.33.0.0/16        # China Unicom Beijing Province Network (CHINA169-BJ) (AS4808)
+125.34.0.0/15        # Beijing ASN / Regional CIDR Allocation
+125.122.0.0/16       # Beijing ASN / Regional CIDR Allocation
+125.124.0.0/16       # China Telecom Beijing IDC Network (AS58461)
+125.208.0.0/16       # Beijing ASN / Regional CIDR Allocation
+125.216.0.0/13       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+125.254.0.0/16       # Beijing ASN / Regional CIDR Allocation
+139.159.0.0/16       # Beijing ASN / Regional CIDR Allocation
+139.198.0.0/16       # Beijing ASN / Regional CIDR Allocation
+139.220.0.0/16       # Beijing ASN / Regional CIDR Allocation
+140.179.0.0/16       # Beijing ASN / Regional CIDR Allocation
+140.210.0.0/16       # Beijing ASN / Regional CIDR Allocation
+150.242.0.0/16       # Beijing ASN / Regional CIDR Allocation
+154.85.0.0/16        # Beijing ASN / Regional CIDR Allocation
+156.240.0.0/16       # Beijing ASN / Regional CIDR Allocation
+156.246.0.0/16       # Beijing ASN / Regional CIDR Allocation
+157.18.0.0/16        # China Unicom IP Network China169 Beijing (AS17816)
+157.61.0.0/16        # China Unicom IP Network China169 Beijing (AS17816)
+157.122.0.0/16       # China Unicom IP Network China169 Beijing (AS17816)
+157.148.0.0/16       # China Unicom IP Network China169 Beijing (AS17816)
+157.156.0.0/16       # China Unicom IP Network China169 Beijing (AS17816)
+157.255.0.0/16       # China Unicom IP Network China169 Beijing (AS17816)
+159.226.0.0/16       # Chinese Academy of Sciences CSTNET Beijing (AS7497)
+160.191.0.0/16       # Beijing ASN / Regional CIDR Allocation
+161.207.0.0/16       # China Unicom Beijing Province Network (CHINA169-BJ) (AS4808)
+162.105.0.0/16       # Peking University CERNET Beijing (AS4538)
+163.0.0.0/16         # China Unicom IP Network China169 Beijing (AS17816)
+163.53.0.0/16        # Beijing ASN / Regional CIDR Allocation
+163.61.0.0/16        # Beijing ASN / Regional CIDR Allocation
+163.142.0.0/16       # China Unicom IP Network China169 Beijing (AS17816)
+163.177.0.0/16       # China Unicom IP Network China169 Beijing (AS17816)
+163.179.0.0/16       # China Unicom IP Network China169 Beijing (AS17816)
+163.204.0.0/16       # China Unicom IP Network China169 Beijing (AS17816)
+166.111.0.0/16       # Tsinghua University CERNET Beijing (AS4538)
+175.25.0.0/16        # Beijing ASN / Regional CIDR Allocation
+175.102.0.0/16       # Beijing ASN / Regional CIDR Allocation
+175.185.0.0/16       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+175.186.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+180.76.0.0/16        # Beijing ASN / Regional CIDR Allocation
+180.84.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+180.88.0.0/15        # Beijing ASN / Regional CIDR Allocation
+180.150.0.0/16       # Beijing ASN / Regional CIDR Allocation
+180.201.0.0/16       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+180.208.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+182.48.0.0/16        # Beijing ASN / Regional CIDR Allocation
+182.61.0.0/16        # Beijing ASN / Regional CIDR Allocation
+182.92.0.0/16        # Alibaba Cloud cn-beijing Region (AS37963)
+183.129.0.0/16       # Beijing ASN / Regional CIDR Allocation
+183.131.0.0/16       # Beijing ASN / Regional CIDR Allocation
+183.134.0.0/16       # Beijing ASN / Regional CIDR Allocation
+183.136.0.0/16       # Beijing ASN / Regional CIDR Allocation
+183.168.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+183.170.0.0/16       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+183.172.0.0/14       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+183.206.0.0/15       # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+183.208.0.0/14       # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+183.212.0.0/15       # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+185.10.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.4.0.0/16         # Beijing ASN / Regional CIDR Allocation
+202.14.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.38.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.41.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.46.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.57.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.65.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.85.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.91.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.93.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.95.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.96.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.99.0.0/16        # Beijing ASN / Regional CIDR Allocation
+202.106.0.0/15       # Beijing ASN / Regional CIDR Allocation
+202.108.0.0/16       # China Unicom Beijing IDC (AS4808)
+202.112.0.0/13       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+202.120.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+202.122.0.0/16       # Beijing ASN / Regional CIDR Allocation
+202.127.0.0/16       # Beijing ASN / Regional CIDR Allocation
+202.130.0.0/16       # Beijing ASN / Regional CIDR Allocation
+202.136.0.0/16       # Beijing ASN / Regional CIDR Allocation
+202.168.0.0/16       # Beijing ASN / Regional CIDR Allocation
+202.179.0.0/16       # Beijing ASN / Regional CIDR Allocation
+202.181.0.0/16       # Beijing ASN / Regional CIDR Allocation
+202.192.0.0/12       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+203.65.0.0/16        # Beijing ASN / Regional CIDR Allocation
+203.91.0.0/16        # Beijing ASN / Regional CIDR Allocation
+203.93.0.0/16        # Beijing ASN / Regional CIDR Allocation
+203.95.0.0/16        # Beijing ASN / Regional CIDR Allocation
+203.119.0.0/16       # Beijing ASN / Regional CIDR Allocation
+203.130.0.0/16       # Beijing ASN / Regional CIDR Allocation
+203.132.0.0/16       # Beijing ASN / Regional CIDR Allocation
+203.135.0.0/16       # Beijing ASN / Regional CIDR Allocation
+203.196.0.0/16       # Beijing ASN / Regional CIDR Allocation
+203.207.0.0/16       # Beijing ASN / Regional CIDR Allocation
+203.212.0.0/16       # Beijing ASN / Regional CIDR Allocation
+210.12.0.0/15        # Beijing ASN / Regional CIDR Allocation
+210.25.0.0/16        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+210.26.0.0/15        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+210.28.0.0/14        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+210.32.0.0/12        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+210.51.0.0/16        # Beijing ASN / Regional CIDR Allocation
+210.72.0.0/13        # CSTNET / CNNIC Beijing (AS7497)
+210.82.0.0/16        # Beijing ASN / Regional CIDR Allocation
+210.192.0.0/16       # Beijing ASN / Regional CIDR Allocation
+211.64.0.0/13        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+211.80.0.0/13        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+211.94.0.0/15        # Beijing ASN / Regional CIDR Allocation
+211.96.0.0/15        # Beijing ASN / Regional CIDR Allocation
+211.99.0.0/16        # China Unicom Beijing (AS4808)
+211.100.0.0/15       # China Telecom Beijing (AS4847)
+211.103.0.0/16       # Beijing ASN / Regional CIDR Allocation
+211.137.0.0/16       # Beijing ASN / Regional CIDR Allocation
+211.138.0.0/15       # Beijing ASN / Regional CIDR Allocation
+211.143.0.0/16       # Beijing ASN / Regional CIDR Allocation
+211.144.0.0/15       # Beijing ASN / Regional CIDR Allocation
+211.147.0.0/16       # Beijing ASN / Regional CIDR Allocation
+211.154.0.0/15       # Beijing ASN / Regional CIDR Allocation
+211.157.0.0/16       # Beijing ASN / Regional CIDR Allocation
+211.161.0.0/16       # Beijing ASN / Regional CIDR Allocation
+211.167.0.0/16       # Beijing ASN / Regional CIDR Allocation
+218.0.0.0/16         # Beijing ASN / Regional CIDR Allocation
+218.104.0.0/16       # Beijing ASN / Regional CIDR Allocation
+218.106.0.0/15       # Beijing ASN / Regional CIDR Allocation
+218.192.0.0/13       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+218.201.0.0/16       # Beijing ASN / Regional CIDR Allocation
+218.205.0.0/16       # Beijing ASN / Regional CIDR Allocation
+218.206.0.0/16       # Beijing ASN / Regional CIDR Allocation
+218.240.0.0/13       # China Telecom Beijing (AS4847)
+218.249.0.0/16       # Beijing ASN / Regional CIDR Allocation
+219.141.0.0/16       # Beijing ASN / Regional CIDR Allocation
+219.158.0.0/16       # Beijing ASN / Regional CIDR Allocation
+219.216.0.0/13       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+219.224.0.0/12       # Beijing ASN / Regional CIDR Allocation
+219.242.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+219.244.0.0/14       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+220.113.0.0/16       # Beijing ASN / Regional CIDR Allocation
+220.181.0.0/16       # China Telecom Beijing / Baidu Beijing (AS4847/AS55967)
+220.187.0.0/16       # Beijing ASN / Regional CIDR Allocation
+220.189.0.0/16       # Beijing ASN / Regional CIDR Allocation
+220.191.0.0/16       # Beijing ASN / Regional CIDR Allocation
+220.194.0.0/16       # Beijing ASN / Regional CIDR Allocation
+220.198.0.0/15       # China Unicom IP Network China169 Beijing (AS17816)
+220.206.0.0/15       # Beijing ASN / Regional CIDR Allocation
+220.243.0.0/16       # Beijing ASN / Regional CIDR Allocation
+220.249.0.0/16       # Beijing ASN / Regional CIDR Allocation
+221.4.0.0/15         # Beijing ASN / Regional CIDR Allocation
+221.122.0.0/15       # China Unicom Beijing (AS4808)
+221.130.0.0/15       # Beijing ASN / Regional CIDR Allocation
+221.178.0.0/15       # Beijing ASN / Regional CIDR Allocation
+221.181.0.0/16       # Beijing ASN / Regional CIDR Allocation
+221.216.0.0/13       # China Unicom Beijing (AS4808)
+222.16.0.0/12        # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+222.45.0.0/16        # Beijing ASN / Regional CIDR Allocation
+222.49.0.0/16        # Beijing ASN / Regional CIDR Allocation
+222.59.0.0/16        # Beijing ASN / Regional CIDR Allocation
+222.128.0.0/14       # China Unicom Beijing (AS4808)
+222.192.0.0/12       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+223.2.0.0/15         # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+223.64.0.0/14        # Beijing ASN / Regional CIDR Allocation
+223.68.0.0/16        # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+223.78.0.0/15        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+223.80.0.0/15        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+223.96.0.0/14        # Beijing Gehua CATV Network Co., Ltd. (AS24444)
+223.104.0.0/13       # Beijing ASN / Regional CIDR Allocation
+223.112.0.0/15       # China Mobile Communications Corporation Beijing (CMNET-BEIJING) (AS56046)
+223.128.0.0/15       # China Education and Research Network Center (CERNET - Beijing) (AS4538)
+223.160.0.0/15       # Beijing ASN / Regional CIDR Allocation
+223.192.0.0/15       # Computer Network Information Center, Chinese Academy of Sciences (CSTNET - Beijing) (AS7497)
+223.202.0.0/15       # Beijing ASN / Regional CIDR Allocation
+223.223.0.0/16       # Beijing ASN / Regional CIDR Allocation

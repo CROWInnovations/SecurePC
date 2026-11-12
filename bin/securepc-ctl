@@ -1,0 +1,365 @@
+#!/bin/sh
+# ==============================================================================
+# SecurePC — Production Control, Policy & Inspection Utility (securepc-ctl)
+# Author:  CROW Innovations (https://crowinnovations.com)
+# License: GNU General Public License v3.0 (GPL-3.0)
+# GitHub:  https://github.com/CROWInnovations/SecurePC
+#
+# Usage:
+#   securepc-ctl status                - Show firewall backend, sets/chains, daemon & GeoIP stats
+#   securepc-ctl doctor                - Run 8-point production security & bypass health check
+#   securepc-ctl lookup <TARGET>       - Identify exact program, binary, PID & purpose for any target
+#   securepc-ctl non-us [N]            - Show Non-US traffic summary & unread login flags
+#   securepc-ctl cert <IP> [PORT] [SNI]- Inspect TLS certificate & GeoIP country of any IP via OpenSSL
+#   securepc-ctl outbound [N]          - Show outbound internet connections
+#   securepc-ctl blocked [N]           - Show blocked connection attempts (CN, RU, IR, ME, DoH)
+#   securepc-ctl connections [N]       - Show recent tracked network connections across all protocols
+#   securepc-ctl allow <IP_OR_CIDR>    - Add IP/CIDR to /etc/securepc/allowlist-ips.txt & reload
+#   securepc-ctl block <IP_OR_DOMAIN>  - Add IP/CIDR or domain to /etc/securepc/blocklist-* & reload
+#   securepc-ctl ack                   - Clear unread critical alerts & Non-US queues (requires sudo)
+#   securepc-ctl update-lists          - Refresh Worldwide RIR GeoIP & ASN blocklists & hot-reload
+#   securepc-ctl reload [--backend X]  - Atomically reload firewall profile & daemon config
+#   securepc-ctl uninstall [OPTIONS]   - Cleanly uninstall SecurePC services, rules, policies & hooks
+# ==============================================================================
+set -eu
+
+# Enforce sanitized PATH & isolated Python (-I) so sudo execution is hijack-proof
+PATH="/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin"
+export PATH
+
+SCRIPT_PATH="$0"
+if command -v readlink >/dev/null 2>&1; then
+    _rl="$(readlink -f -- "$0" 2>/dev/null || true)"
+    [ -n "${_rl}" ] && SCRIPT_PATH="${_rl}"
+fi
+SCRIPT_DIR="$(CDPATH='' cd -- "$(dirname -- "${SCRIPT_PATH}")" && pwd -P)"
+BASE_DIR="$(CDPATH='' cd -- "${SCRIPT_DIR}/.." && pwd -P)"
+
+# shellcheck disable=SC1091
+. "${SCRIPT_DIR}/securepc-lib.sh"
+securepc_resolve_paths "${SCRIPT_DIR}"
+securepc_load_conf
+
+if [ -f "${SCRIPT_DIR}/securepc-banner.sh" ]; then
+    # shellcheck disable=SC1091
+    . "${SCRIPT_DIR}/securepc-banner.sh"
+fi
+
+VAR_LOG_DIR="${SECUREPC_VAR_LOG}"
+cmd="${1:-status}"
+
+case "${cmd}" in
+    banner|login-preview|cert|inspect-cert|openssl|reload|uninstall|lookup|identify|who|program|inspect|allow|block|update-lists)
+        ;;
+    *)
+        if command -v print_securepc_banner >/dev/null 2>&1; then
+            print_securepc_banner
+            echo ""
+        fi
+        ;;
+esac
+
+run_root() {
+    if [ "$(id -u)" -eq 0 ]; then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
+case "${cmd}" in
+    status)
+        ACTIVE_BE="$(securepc_get_active_backend)"
+        echo "=== [1] SecurePC Services & Active Firewall Engine ==="
+        echo "  - Configured Backend: ${FIREWALL_BACKEND}  (Active: ${ACTIVE_BE})"
+        echo "  - Outbound Action:    ${OUTBOUND_BLOCK_ACTION}  |  DoH/DoT Anti-Bypass: $( [ "${BLOCK_DOH_DOT}" = "1" ] && echo "ENABLED" || echo "disabled" )"
+        if command -v systemctl >/dev/null 2>&1; then
+            echo "  - Firewall Unit:      $(systemctl is-active securepc-firewall.service 2>/dev/null || echo inactive) ($(systemctl is-enabled securepc-firewall.service 2>/dev/null || echo disabled))"
+            echo "  - Monitor Daemon:     $(systemctl is-active securepc-monitor.service 2>/dev/null || echo inactive) ($(systemctl is-enabled securepc-monitor.service 2>/dev/null || echo disabled))"
+            echo "  - GeoIP Auto-Timer:   $(systemctl is-active securepc-geoip-update.timer 2>/dev/null || echo inactive) ($(systemctl is-enabled securepc-geoip-update.timer 2>/dev/null || echo disabled))"
+        fi
+        echo ""
+        echo "=== [2] Kernel Firewall Ruleset & Block Counters (${ACTIVE_BE}) ==="
+        if [ "${ACTIVE_BE}" = "nftables" ] && command -v nft >/dev/null 2>&1; then
+            if run_root nft list table inet securepc >/dev/null 2>&1; then
+                run_root nft list chains inet securepc | grep -E 'chain |counter packets [1-9]' || true
+                echo ""
+                echo "=== [3] Loaded Dual-Stack nftables Interval Sets ==="
+                for s in beijing_v4 aliyuncs_v4 cn_v4 ru_v4 ir_v4 me_v4 doh_v4 dyn_blk_v4 cn_v6 ru_v6 ir_v6 me_v6 doh_v6 dyn_blk_v6; do
+                    cnt="$(run_root nft list set inet securepc "$s" 2>/dev/null | tr ',' '\n' | grep -Ec '[0-9a-fA-F.:]+/[0-9]+|expires' || true)"
+                    echo "  - inet securepc @${s}: ${cnt} intervals/entries"
+                done
+            else
+                echo "  [!] nftables 'table inet securepc' is not currently loaded."
+            fi
+        else
+            run_root iptables -L OUTPUT -n -v --line-numbers 2>/dev/null | head -n 8 || true
+            echo ""
+            run_root iptables -L SECUREPC_EGRESS -n -v --line-numbers 2>/dev/null || true
+            echo ""
+            echo "=== [3] Loaded Kernel ipset Entry Counts (IPv4 & IPv6) ==="
+            for s in securepc_beijing securepc_aliyuncs securepc_cn_all securepc_ru_all securepc_ir_all securepc_me_all securepc_doh securepc_dyn_blk securepc6_cn_all securepc6_ru_all securepc6_ir_all securepc6_me_all securepc6_doh securepc6_dyn_blk; do
+                cnt="$(run_root ipset list "$s" -t 2>/dev/null | awk '/Number of entries:/ {print $4}' || true)"
+                echo "  - ${s}: ${cnt:-0} CIDRs"
+            done
+        fi
+        echo ""
+        echo "=== [4] Worldwide GeoIP, Browser Anti-Bypass & OpenSSL Cert Cache ==="
+        v4_cnt="$(grep -vc '^#' "${SECUREPC_LISTS_DIR}/world-geoip-v4.tsv" 2>/dev/null || echo 0)"
+        v6_cnt="$(grep -vc '^#' "${SECUREPC_LISTS_DIR}/world-geoip-v6.tsv" 2>/dev/null || echo 0)"
+        cert_cnt="$(/usr/bin/python3 -I -c 'import json,os; p="/var/log/securepc/openssl-cert-cache.json"; p2="/var/lib/securepc/openssl-cert-cache.json"; f=p if os.path.exists(p) else p2; d=json.load(open(f)) if os.path.exists(f) else {}; print(sum(1 for v in d.values() if v.get("has_cert")))' 2>/dev/null || echo 0)"
+        bpol_cnt="$(/usr/bin/python3 -I "${SECUREPC_BIN_DIR}/securepc-browser-policy.py" status 2>/dev/null | /usr/bin/python3 -I -c 'import json,sys; d=json.load(sys.stdin); print(len(d.get("files",[])))' 2>/dev/null || echo 0)"
+        non_us_cnt="$(wc -l < "${VAR_LOG_DIR}/non-us-traffic.log" 2>/dev/null | tr -d '[:space:]' || echo 0)"
+        blk_cnt="$(wc -l < "${VAR_LOG_DIR}/blocked-alerts.log" 2>/dev/null | tr -d '[:space:]' || echo 0)"
+        echo "  - Worldwide GeoIP Intervals:  ${v4_cnt} IPv4 / ${v6_cnt} IPv6"
+        echo "  - Browser DoH/ECH Policies:   ${bpol_cnt} managed policy file(s) active"
+        echo "  - Cached OpenSSL X.509 Certs: ${cert_cnt} remote endpoints"
+        echo "  - Logged Blocked Events:      ${blk_cnt}  |  Logged Non-US Events: ${non_us_cnt}"
+        ;;
+
+    doctor|self-test|check)
+        echo "=== SecurePC Production Readiness & Security Health Check ==="
+        FAILS=0
+        pass_chk() { printf '  [PASS] %s\n' "$1"; }
+        fail_chk() { printf '  [FAIL] %s\n' "$1"; FAILS=$((FAILS + 1)); }
+
+        # 1. Immutable root ownership of installed runtime
+        if [ -d "/usr/local/lib/securepc/bin" ]; then
+            _own="$(stat -c '%u:%g' /usr/local/lib/securepc/bin/securepc-monitor.py 2>/dev/null || echo "")"
+            if [ "${_own}" = "0:0" ]; then
+                pass_chk "Runtime binaries in /usr/local/lib/securepc owned strictly by root:root (LPE-safe)"
+            else
+                fail_chk "Runtime binaries not owned by root:root (${_own})"
+            fi
+        else
+            fail_chk "/usr/local/lib/securepc not installed yet (run 'sudo ./install.sh')"
+        fi
+
+        # 2. Boot persistence unit
+        if command -v systemctl >/dev/null 2>&1 && systemctl is-enabled --quiet securepc-firewall.service 2>/dev/null; then
+            pass_chk "Boot firewall persistence enabled (securepc-firewall.service Before=network-pre.target)"
+        else
+            fail_chk "securepc-firewall.service is not enabled for boot persistence"
+        fi
+
+        # 3. Monitor daemon active
+        if command -v systemctl >/dev/null 2>&1 && systemctl is-active --quiet securepc-monitor.service 2>/dev/null; then
+            pass_chk "Attribution & NFQUEUE DPI daemon active (securepc-monitor.service)"
+        else
+            fail_chk "securepc-monitor.service is not running"
+        fi
+
+        # 4. Active kernel firewall rules
+        ACTIVE_BE="$(securepc_get_active_backend)"
+        if [ "${ACTIVE_BE}" = "nftables" ] && run_root nft list table inet securepc >/dev/null 2>&1; then
+            pass_chk "Kernel dual-stack nftables 'table inet securepc' loaded and enforcing"
+        elif [ "${ACTIVE_BE}" = "iptables" ] && run_root iptables -C OUTPUT -j SECUREPC_OUT 2>/dev/null; then
+            pass_chk "Kernel iptables/ip6tables SECUREPC chains hooked and enforcing"
+        else
+            fail_chk "Kernel firewall rules are not currently active (${ACTIVE_BE})"
+        fi
+
+        # 5. NFQUEUE listener bound
+        if run_root awk '{if ($1 == "'"${NFQUEUE_NUM}"'") found=1} END {exit !found}' /proc/net/netfilter/nfnetlink_queue 2>/dev/null; then
+            pass_chk "Synchronous NFQUEUE DPI listener bound on queue ${NFQUEUE_NUM} (DNS QNAME + TLS SNI + HTTP Host)"
+        else
+            fail_chk "NFQUEUE ${NFQUEUE_NUM} listener not visible in /proc/net/netfilter/nfnetlink_queue"
+        fi
+
+        # 6. Browser DoH/ECH policies
+        bpol_cnt="$(/usr/bin/python3 -I "${SECUREPC_BIN_DIR}/securepc-browser-policy.py" status 2>/dev/null | /usr/bin/python3 -I -c 'import json,sys; d=json.load(sys.stdin); print(len(d.get("files",[])))' 2>/dev/null || echo 0)"
+        if [ "${bpol_cnt}" -gt 0 ]; then
+            pass_chk "Browser anti-bypass policies active (${bpol_cnt} Firefox/Chromium DoH+ECH lock files)"
+        else
+            fail_chk "Browser DoH/ECH managed policies not installed"
+        fi
+
+        # 7. Tamper-protected audit logs
+        if [ -d "${VAR_LOG_DIR}" ]; then
+            _lperm="$(stat -c '%a' "${VAR_LOG_DIR}" 2>/dev/null || echo "")"
+            _lown="$(stat -c '%u' "${VAR_LOG_DIR}" 2>/dev/null || echo "")"
+            if [ "${_lown}" = "0" ] && [ "${_lperm}" = "750" ]; then
+                pass_chk "Audit log directory ${VAR_LOG_DIR} tamper-protected (0750, root-owned)"
+            else
+                fail_chk "Audit log directory ${VAR_LOG_DIR} permissions unexpected (uid=${_lown}, mode=${_lperm})"
+            fi
+        else
+            fail_chk "Audit log directory ${VAR_LOG_DIR} missing"
+        fi
+
+        # 8. GeoIP database populated
+        if [ -s "${SECUREPC_LISTS_DIR}/world-geoip-v4.tsv" ] && [ -s "${SECUREPC_LISTS_DIR}/world-geoip-v6.tsv" ]; then
+            pass_chk "Worldwide RIR GeoIP v4 & v6 interval tables populated in ${SECUREPC_LISTS_DIR}"
+        else
+            fail_chk "Worldwide RIR GeoIP tables missing in ${SECUREPC_LISTS_DIR}"
+        fi
+
+        echo "-------------------------------------------------------------"
+        if [ "${FAILS}" -eq 0 ]; then
+            echo "Result: ALL 8 PRODUCTION CHECKS PASSED."
+        else
+            echo "Result: ${FAILS} check(s) reported issues."
+            exit 1
+        fi
+        ;;
+
+    allow)
+        if [ "$#" -lt 2 ]; then
+            echo "Usage: sudo securepc-ctl allow <IP_OR_CIDR>" >&2
+            exit 1
+        fi
+        NORM_CIDR="$(/usr/bin/python3 -I -c 'import ipaddress,sys; print(ipaddress.ip_network(sys.argv[1].strip(), strict=False))' "$2")"
+        run_root sh -c '
+            mkdir -p "'"${SECUREPC_CONF_DIR}"'"
+            touch "'"${SECUREPC_CONF_DIR}/allowlist-ips.txt"'"
+            grep -qxF "'"${NORM_CIDR}"'" "'"${SECUREPC_CONF_DIR}/allowlist-ips.txt"'" || printf "%s\n" "'"${NORM_CIDR}"'" >> "'"${SECUREPC_CONF_DIR}/allowlist-ips.txt"'"
+        '
+        echo "Added ${NORM_CIDR} to ${SECUREPC_CONF_DIR}/allowlist-ips.txt. Reloading firewall..."
+        run_root "${SECUREPC_BIN_DIR}/enable-securepc-firewall.sh" --quiet
+        echo "Done."
+        ;;
+
+    block)
+        if [ "$#" -lt 2 ]; then
+            echo "Usage: sudo securepc-ctl block <IP_CIDR_OR_DOMAIN>" >&2
+            exit 1
+        fi
+        TARGET_RAW="$2"
+        if NORM_CIDR="$(/usr/bin/python3 -I -c 'import ipaddress,sys; print(ipaddress.ip_network(sys.argv[1].strip(), strict=False))' "${TARGET_RAW}" 2>/dev/null)"; then
+            run_root sh -c '
+                mkdir -p "'"${SECUREPC_CONF_DIR}"'"
+                touch "'"${SECUREPC_CONF_DIR}/blocklist-ips.txt"'"
+                grep -qxF "'"${NORM_CIDR}"'" "'"${SECUREPC_CONF_DIR}/blocklist-ips.txt"'" || printf "%s\n" "'"${NORM_CIDR}"'" >> "'"${SECUREPC_CONF_DIR}/blocklist-ips.txt"'"
+            '
+            echo "Added IP/CIDR ${NORM_CIDR} to ${SECUREPC_CONF_DIR}/blocklist-ips.txt. Reloading firewall..."
+            run_root "${SECUREPC_BIN_DIR}/enable-securepc-firewall.sh" --quiet
+        else
+            NORM_DOM="$(/usr/bin/python3 -I -c 'import re,sys; d=sys.argv[1].strip().lower().lstrip("*."); assert "." in d and re.match(r"^[a-z0-9.-]+$", d); print(d)' "${TARGET_RAW}")"
+            run_root sh -c '
+                mkdir -p "'"${SECUREPC_CONF_DIR}"'"
+                touch "'"${SECUREPC_CONF_DIR}/blocklist-domains.txt"'"
+                grep -qxF "'"${NORM_DOM}"'" "'"${SECUREPC_CONF_DIR}/blocklist-domains.txt"'" || printf "%s\n" "'"${NORM_DOM}"'" >> "'"${SECUREPC_CONF_DIR}/blocklist-domains.txt"'"
+            '
+            echo "Added domain ${NORM_DOM} to ${SECUREPC_CONF_DIR}/blocklist-domains.txt. Hot-reloading daemon..."
+            run_root systemctl kill -s HUP securepc-monitor.service 2>/dev/null || true
+        fi
+        echo "Done."
+        ;;
+
+    non-us|nonus|foreign)
+        echo "=== Non-US Traffic Summary Table (Country, Policy, PID/PPID, Service/Software, IP, Port & OpenSSL Cert Domain) ==="
+        if [ -r "${VAR_LOG_DIR}/non-us-summary.txt" ] && [ -s "${VAR_LOG_DIR}/non-us-summary.txt" ]; then
+            cat "${VAR_LOG_DIR}/non-us-summary.txt"
+        else
+            echo "No Non-US traffic recorded yet."
+        fi
+        echo ""
+        echo "=== Unread First-Login Non-US Flags Queue ==="
+        if [ -r "${VAR_LOG_DIR}/unread-non-us.log" ] && [ -s "${VAR_LOG_DIR}/unread-non-us.log" ]; then
+            cat "${VAR_LOG_DIR}/unread-non-us.log"
+        else
+            echo "(Empty — no unacknowledged Non-US events in queue)"
+        fi
+        echo ""
+        echo "=== Recent Non-US Traffic Detailed Log Entries ==="
+        if [ -r "${VAR_LOG_DIR}/non-us-traffic.log" ] && [ -s "${VAR_LOG_DIR}/non-us-traffic.log" ]; then
+            tail -n "${2:-40}" "${VAR_LOG_DIR}/non-us-traffic.log"
+        else
+            echo "No Non-US traffic log entries recorded yet."
+        fi
+        ;;
+
+    cert|inspect-cert|openssl)
+        if [ "$#" -lt 2 ]; then
+            echo "Usage: securepc-ctl cert <IP> [PORT] [OPTIONAL_SNI_HOSTNAME]" >&2
+            exit 1
+        fi
+        shift
+        /usr/bin/python3 -I "${SECUREPC_BIN_DIR}/securepc_geo_cert.py" "$@"
+        ;;
+
+    lookup|identify|who|program|inspect)
+        if [ "$#" -lt 2 ]; then
+            echo "Usage: securepc-ctl lookup <DOMAIN | IP | PROGRAM | PID>" >&2
+            exit 1
+        fi
+        shift
+        /usr/bin/python3 -I "${SECUREPC_BIN_DIR}/securepc-lookup.py" "$@"
+        ;;
+
+    outbound)
+        echo "=== Outbound Internet Summary Table ==="
+        if [ -r "${VAR_LOG_DIR}/outbound-summary.txt" ] && [ -s "${VAR_LOG_DIR}/outbound-summary.txt" ]; then
+            cat "${VAR_LOG_DIR}/outbound-summary.txt"
+        fi
+        echo ""
+        echo "=== Recent Outbound Internet Log Entries ==="
+        if [ -r "${VAR_LOG_DIR}/outbound-internet.log" ] && [ -s "${VAR_LOG_DIR}/outbound-internet.log" ]; then
+            tail -n "${2:-40}" "${VAR_LOG_DIR}/outbound-internet.log"
+        else
+            echo "No outbound internet connections logged yet."
+        fi
+        ;;
+
+    blocked)
+        echo "=== Blocked Connection Attempts (China / Russia / Iran / Middle East / DoH Bypass) ==="
+        if [ -r "${VAR_LOG_DIR}/blocked-alerts.log" ] && [ -s "${VAR_LOG_DIR}/blocked-alerts.log" ]; then
+            tail -n "${2:-60}" "${VAR_LOG_DIR}/blocked-alerts.log"
+        else
+            echo "No blocked connection attempts recorded yet."
+        fi
+        ;;
+
+    connections)
+        echo "=== Recent Network Connections ==="
+        if [ -r "${VAR_LOG_DIR}/connections.log" ] && [ -s "${VAR_LOG_DIR}/connections.log" ]; then
+            tail -n "${2:-50}" "${VAR_LOG_DIR}/connections.log"
+        else
+            echo "No tracked connections recorded yet."
+        fi
+        ;;
+
+    banner|login-preview)
+        "${SECUREPC_BIN_DIR}/securepc-login-notify.sh" --no-clear
+        ;;
+
+    ack|clear-alerts)
+        run_root truncate -s 0 \
+            "${VAR_LOG_DIR}/unread-alerts.log" \
+            "${VAR_LOG_DIR}/unread-non-us.log" 2>/dev/null || true
+        rm -f "${HOME:-/nonexistent}/.cache/securepc/"*.cursor 2>/dev/null || true
+        echo "Unread critical blocked alerts and Non-US login queues cleared. Historical audit logs remain intact."
+        ;;
+
+    update-lists)
+        echo "Refreshing Worldwide RIR GeoIP & ASN blocklists..."
+        run_root /usr/bin/python3 -I "${SECUREPC_BIN_DIR}/build-ip-lists.py" --lists-dir "${SECUREPC_LISTS_DIR}"
+        run_root "${SECUREPC_BIN_DIR}/enable-securepc-firewall.sh"
+        run_root systemctl kill -s HUP securepc-monitor.service 2>/dev/null || true
+        ;;
+
+    reload)
+        shift
+        run_root "${SECUREPC_BIN_DIR}/enable-securepc-firewall.sh" "$@"
+        if [ "${ENFORCE_BROWSER_POLICIES:-1}" = "1" ]; then
+            run_root /usr/bin/python3 -I "${SECUREPC_BIN_DIR}/securepc-browser-policy.py" apply >/dev/null
+        fi
+        if command -v systemctl >/dev/null 2>&1; then
+            run_root systemctl restart securepc-monitor.service
+        fi
+        ;;
+
+    uninstall)
+        shift
+        if [ -x "${SECUREPC_INSTALL_ROOT}/uninstall.sh" ]; then
+            exec "${SECUREPC_INSTALL_ROOT}/uninstall.sh" "$@"
+        else
+            exec "${BASE_DIR}/uninstall.sh" "$@"
+        fi
+        ;;
+
+    *)
+        echo "Usage: securepc-ctl {status|doctor|lookup <TARGET>|non-us [N]|cert <IP> [PORT] [SNI]|outbound [N]|blocked [N]|connections [N]|allow <CIDR>|block <TARGET>|banner|ack|update-lists|reload|uninstall}" >&2
+        exit 1
+        ;;
+esac

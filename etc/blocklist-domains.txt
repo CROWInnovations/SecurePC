@@ -1,0 +1,7 @@
+# ==============================================================================
+# SecurePC — Custom Blocked Domains & Suffixes
+# Location: /etc/securepc/blocklist-domains.txt
+# One domain or suffix per line (e.g., example.cn or badhost.org matches both
+# exact domain and all subdomains *.badhost.org).
+# Reload after editing: sudo securepc-ctl reload
+# ==============================================================================
