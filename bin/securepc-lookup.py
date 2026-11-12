@@ -97,7 +97,7 @@ def grep_log_file(filepath: str, query: str, max_lines: int = 1000) -> list:
 def lookup_target(query: str):
     q = query.strip()
     if not q:
-        print("Usage: securepc-ctl lookup <DOMAIN | IP | PROGRAM | PID>")
+        print("Usage: securepc lookup <DOMAIN | IP | PROGRAM | PID>")
         return
 
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -284,6 +284,6 @@ def lookup_target(query: str):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: securepc-ctl lookup <DOMAIN | IP | PROGRAM | PID>")
+        print("Usage: securepc lookup <DOMAIN | IP | PROGRAM | PID>")
         sys.exit(1)
     lookup_target(sys.argv[1])

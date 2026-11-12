@@ -10,7 +10,7 @@
 #   - /etc/securepc/             (admin configuration & custom allow/blocklists)
 #   - /var/lib/securepc/         (Worldwide RIR GeoIP tables & compiled rules)
 #   - /var/log/securepc/         (tamper-protected 0750 root:securepc audit logs)
-#   - /usr/local/bin/securepc-ctl
+#   - /usr/local/bin/securepc
 # ==============================================================================
 set -euo pipefail
 
@@ -186,7 +186,7 @@ install -d -o root -g root -m 0750 "${DEST_RULES_DIR}"
 for f in \
     securepc-banner.sh \
     securepc-lib.sh \
-    securepc-ctl \
+    securepc \
     enable-securepc-firewall.sh \
     disable-securepc-firewall.sh \
     securepc-login-notify.sh \
@@ -200,7 +200,35 @@ for f in \
     install -o root -g root -m 0755 "${SRC_BIN_DIR}/${f}" "${DEST_BIN_DIR}/${f}"
 done
 install -o root -g root -m 0755 "${SCRIPT_DIR}/uninstall.sh" "${INSTALL_ROOT}/uninstall.sh"
-ln -sf "${DEST_BIN_DIR}/securepc-ctl" /usr/local/bin/securepc-ctl
+rm -f "${DEST_BIN_DIR}/securepc-ctl" /usr/local/bin/securepc-ctl 2>/dev/null || true
+
+# Remove any legacy Python-packaged securepc entry-point wrappers (e.g. 'from securepc.cli import main')
+TARGET_HOME_EARLY=""
+if [ -n "${TARGET_USER}" ]; then
+    TARGET_HOME_EARLY="$(getent passwd "${TARGET_USER}" | cut -d: -f6 || true)"
+fi
+for legacy_bin in \
+    /usr/sbin/securepc \
+    /usr/bin/securepc \
+    /usr/local/sbin/securepc \
+    /usr/local/bin/securepc \
+    /sbin/securepc \
+    "${TARGET_HOME_EARLY:+${TARGET_HOME_EARLY}/.local/bin/securepc}" \
+    "${TARGET_HOME_EARLY:+${TARGET_HOME_EARLY}/.local/bin/securepc-ctl}" \
+    "${TARGET_HOME_EARLY:+${TARGET_HOME_EARLY}/bin/securepc}" \
+    "${TARGET_HOME_EARLY:+${TARGET_HOME_EARLY}/bin/securepc-ctl}"; do
+    [ -n "${legacy_bin}" ] || continue
+    if [ -L "${legacy_bin}" ]; then
+        rm -f "${legacy_bin}"
+    elif [ -f "${legacy_bin}" ] && grep -qE 'securepc\.cli|SecurePC|securepc-ctl' "${legacy_bin}" 2>/dev/null; then
+        rm -f "${legacy_bin}"
+    fi
+done
+
+ln -sf "${DEST_BIN_DIR}/securepc" /usr/local/bin/securepc
+if [ -d /usr/sbin ]; then
+    ln -sf "${DEST_BIN_DIR}/securepc" /usr/sbin/securepc
+fi
 
 # Install default config files without clobbering existing admin customizations
 for cf in securepc.conf allowlist-ips.txt blocklist-ips.txt blocklist-domains.txt; do
@@ -305,6 +333,9 @@ EOF
     chmod 0644 /etc/logrotate.d/securepc
 fi
 
+# Remove any legacy login hooks from earlier Python-packaged SecurePC versions
+rm -f /etc/profile.d/securepc.sh /etc/profile.d/securepc-banner.sh 2>/dev/null || true
+
 # POSIX / Bash / Zsh interactive login banner hook (uses $- instead of PS1 so Kali/Debian Zsh zprofile works)
 cat <<EOF > /etc/profile.d/securepc-login-notify.sh
 # SecurePC Interactive Login Notification Hook (Console & SSH — Bash, Dash & Zsh safe)
@@ -353,6 +384,14 @@ fi
 
 echo "==> [7/8] Installing hardened systemd units (boot-time firewall, daemon & weekly GeoIP updater)..."
 if command -v systemctl >/dev/null 2>&1 && [ -d /etc/systemd/system ]; then
+    for legacy_unit in securepc.service securepc-daemon.service; do
+        if [ -f "/etc/systemd/system/${legacy_unit}" ]; then
+            systemctl stop "${legacy_unit}" 2>/dev/null || true
+            systemctl disable "${legacy_unit}" 2>/dev/null || true
+            rm -f "/etc/systemd/system/${legacy_unit}"
+        fi
+    done
+
     cat <<EOF > /etc/systemd/system/securepc-firewall.service
 [Unit]
 Description=SecurePC Early-Boot Netfilter/nftables Geo-Firewall & Anti-DoH Profile
@@ -441,11 +480,11 @@ if command -v systemctl >/dev/null 2>&1 && [ -d /run/systemd/system ]; then
     systemctl start securepc-geoip-update.timer
     sleep 1
     echo ""
-    /usr/local/bin/securepc-ctl doctor || true
+    /usr/local/bin/securepc doctor || true
 else
     "${DEST_BIN_DIR}/enable-securepc-firewall.sh"
 fi
 
 echo ""
 echo "SecurePC installation complete."
-echo "Run 'securepc-ctl status', 'securepc-ctl doctor', or 'securepc-ctl banner' to inspect."
+echo "Run 'securepc status', 'securepc doctor', or 'securepc banner' to inspect."

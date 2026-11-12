@@ -1,31 +1,34 @@
 #!/bin/sh
 # ==============================================================================
-# SecurePC — Production Control, Policy & Inspection Utility (securepc-ctl)
+# SecurePC — Production Control, Policy & Inspection Utility (securepc)
 # Author:  CROW Innovations (https://crowinnovations.com)
 # License: GNU General Public License v3.0 (GPL-3.0)
 # GitHub:  https://github.com/CROWInnovations/SecurePC
 #
 # Usage:
-#   securepc-ctl status                - Show firewall backend, sets/chains, daemon & GeoIP stats
-#   securepc-ctl doctor                - Run 8-point production security & bypass health check
-#   securepc-ctl lookup <TARGET>       - Identify exact program, binary, PID & purpose for any target
-#   securepc-ctl non-us [N]            - Show Non-US traffic summary & unread login flags
-#   securepc-ctl cert <IP> [PORT] [SNI]- Inspect TLS certificate & GeoIP country of any IP via OpenSSL
-#   securepc-ctl outbound [N]          - Show outbound internet connections
-#   securepc-ctl blocked [N]           - Show blocked connection attempts (CN, RU, IR, ME, DoH)
-#   securepc-ctl connections [N]       - Show recent tracked network connections across all protocols
-#   securepc-ctl allow <IP_OR_CIDR>    - Add IP/CIDR to /etc/securepc/allowlist-ips.txt & reload
-#   securepc-ctl block <IP_OR_DOMAIN>  - Add IP/CIDR or domain to /etc/securepc/blocklist-* & reload
-#   securepc-ctl ack                   - Clear unread critical alerts & Non-US queues (requires sudo)
-#   securepc-ctl update-lists          - Refresh Worldwide RIR GeoIP & ASN blocklists & hot-reload
-#   securepc-ctl reload [--backend X]  - Atomically reload firewall profile & daemon config
-#   securepc-ctl uninstall [OPTIONS]   - Cleanly uninstall SecurePC services, rules, policies & hooks
+#   securepc status                    - Show firewall backend, sets/chains, daemon & GeoIP stats
+#   securepc doctor                    - Run 8-point production security & bypass health check
+#   securepc lookup <TARGET>           - Identify exact program, binary, PID & purpose for any target
+#   securepc non-us [N]                - Show Non-US traffic summary & unread login flags
+#   securepc cert <IP> [PORT] [SNI]    - Inspect TLS certificate & GeoIP country of any IP via OpenSSL
+#   securepc outbound [N]              - Show outbound internet connections
+#   securepc blocked [N]               - Show blocked connection attempts (CN, RU, IR, ME, DoH)
+#   securepc connections [N]           - Show recent tracked network connections across all protocols
+#   securepc allow <IP_OR_CIDR>        - Add IP/CIDR to /etc/securepc/allowlist-ips.txt & reload
+#   securepc block <IP_OR_DOMAIN>      - Add IP/CIDR or domain to /etc/securepc/blocklist-* & reload
+#   securepc banner | login-banner     - Display SecurePC banner & interactive login traffic summary
+#   securepc ack                       - Clear unread critical alerts & Non-US queues (requires sudo)
+#   securepc update-lists              - Refresh Worldwide RIR GeoIP & ASN blocklists & hot-reload
+#   securepc reload [--backend X]      - Atomically reload firewall profile & daemon config
+#   securepc uninstall [OPTIONS]       - Cleanly uninstall SecurePC services, rules, policies & hooks
 # ==============================================================================
 set -eu
 
 # Enforce sanitized PATH & isolated Python (-I) so sudo execution is hijack-proof
 PATH="/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin"
 export PATH
+
+CLI_NAME="securepc"
 
 SCRIPT_PATH="$0"
 if command -v readlink >/dev/null 2>&1; then
@@ -49,7 +52,7 @@ VAR_LOG_DIR="${SECUREPC_VAR_LOG}"
 cmd="${1:-status}"
 
 case "${cmd}" in
-    banner|login-preview|cert|inspect-cert|openssl|reload|uninstall|lookup|identify|who|program|inspect|allow|block|update-lists)
+    banner|login-banner|login-preview|cert|inspect-cert|openssl|reload|uninstall|lookup|identify|who|program|inspect|allow|block|update-lists|-h|--help|help)
         ;;
     *)
         if command -v print_securepc_banner >/dev/null 2>&1; then
@@ -205,7 +208,7 @@ case "${cmd}" in
 
     allow)
         if [ "$#" -lt 2 ]; then
-            echo "Usage: sudo securepc-ctl allow <IP_OR_CIDR>" >&2
+            echo "Usage: sudo securepc allow <IP_OR_CIDR>" >&2
             exit 1
         fi
         NORM_CIDR="$(/usr/bin/python3 -I -c 'import ipaddress,sys; print(ipaddress.ip_network(sys.argv[1].strip(), strict=False))' "$2")"
@@ -221,7 +224,7 @@ case "${cmd}" in
 
     block)
         if [ "$#" -lt 2 ]; then
-            echo "Usage: sudo securepc-ctl block <IP_CIDR_OR_DOMAIN>" >&2
+            echo "Usage: sudo securepc block <IP_CIDR_OR_DOMAIN>" >&2
             exit 1
         fi
         TARGET_RAW="$2"
@@ -271,7 +274,7 @@ case "${cmd}" in
 
     cert|inspect-cert|openssl)
         if [ "$#" -lt 2 ]; then
-            echo "Usage: securepc-ctl cert <IP> [PORT] [OPTIONAL_SNI_HOSTNAME]" >&2
+            echo "Usage: securepc cert <IP> [PORT] [OPTIONAL_SNI_HOSTNAME]" >&2
             exit 1
         fi
         shift
@@ -280,7 +283,7 @@ case "${cmd}" in
 
     lookup|identify|who|program|inspect)
         if [ "$#" -lt 2 ]; then
-            echo "Usage: securepc-ctl lookup <DOMAIN | IP | PROGRAM | PID>" >&2
+            echo "Usage: securepc lookup <DOMAIN | IP | PROGRAM | PID>" >&2
             exit 1
         fi
         shift
@@ -319,8 +322,12 @@ case "${cmd}" in
         fi
         ;;
 
-    banner|login-preview)
-        "${SECUREPC_BIN_DIR}/securepc-login-notify.sh" --no-clear
+    banner|login-banner|login-preview)
+        if [ "${2:-}" = "--short" ] || [ "${2:-}" = "--header" ]; then
+            print_securepc_banner
+        else
+            "${SECUREPC_BIN_DIR}/securepc-login-notify.sh" --no-clear
+        fi
         ;;
 
     ack|clear-alerts)
@@ -358,8 +365,36 @@ case "${cmd}" in
         fi
         ;;
 
+    -h|--help|help)
+        if command -v print_securepc_banner >/dev/null 2>&1; then
+            print_securepc_banner
+            echo ""
+        fi
+        cat <<EOF
+Usage: ${CLI_NAME} <command> [arguments]
+
+Commands:
+  status                    Show firewall backend, sets/chains, daemon & GeoIP stats
+  doctor                    Run 8-point production security & bypass health check
+  banner | login-banner     Display SecurePC banner & interactive login traffic summary
+  lookup <TARGET>           Attribute traffic by domain, IP, program, or PID
+  cert <IP> [PORT] [SNI]    Inspect RIR GeoIP & OpenSSL X.509 certificate for an IP
+  outbound [N]              Show recent outbound internet connections
+  non-us [N]                Show Non-US traffic summary & unread login flags
+  blocked [N]               Show blocked connection attempts (CN, RU, IR, ME, DoH)
+  connections [N]           Show recent tracked network connections across all protocols
+  allow <IP_OR_CIDR>        Add IP/CIDR to /etc/securepc/allowlist-ips.txt & reload
+  block <IP_OR_DOMAIN>      Add IP/CIDR or domain to /etc/securepc/blocklist-* & reload
+  ack                       Clear unread critical alerts & Non-US queues (requires sudo)
+  update-lists              Refresh Worldwide RIR GeoIP & ASN blocklists & hot-reload
+  reload [--backend X]      Atomically reload firewall profile & daemon config
+  uninstall [OPTIONS]       Cleanly uninstall SecurePC services, rules, policies & hooks
+EOF
+        exit 0
+        ;;
+
     *)
-        echo "Usage: securepc-ctl {status|doctor|lookup <TARGET>|non-us [N]|cert <IP> [PORT] [SNI]|outbound [N]|blocked [N]|connections [N]|allow <CIDR>|block <TARGET>|banner|ack|update-lists|reload|uninstall}" >&2
+        echo "Usage: ${CLI_NAME} {status|doctor|lookup <TARGET>|non-us [N]|cert <IP> [PORT] [SNI]|outbound [N]|blocked [N]|connections [N]|allow <CIDR>|block <TARGET>|banner|login-banner|ack|update-lists|reload|uninstall}" >&2
         exit 1
         ;;
 esac
