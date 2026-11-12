@@ -1,0 +1,77 @@
+# SecurePC — Major .cn TLD Root DNS, Registries, and National Backbone CIDR Ranges
+# Generated: 2026-11-11 17:01:09 UTC
+# Total CIDR Blocks: 73
+
+1.0.1.0/24           # APNIC China Telecom Allocation
+1.2.0.0/22           # APNIC China Allocation
+1.12.0.0/14          # APNIC China Allocation
+1.24.0.0/13          # APNIC China Unicom Allocation
+14.16.0.0/12         # China Telecom / China Backbone Allocations
+14.104.0.0/13        # China Telecom / China Backbone Allocations
+14.144.0.0/12        # China Telecom / China Backbone Allocations
+14.204.0.0/14        # China Telecom / China Backbone Allocations
+27.8.0.0/13          # China Unicom Allocation
+27.16.0.0/12         # China Telecom Allocation
+27.148.0.0/14        # China Telecom Allocation
+27.184.0.0/13        # China Unicom Allocation
+36.0.0.0/10          # China Telecom Allocation
+36.96.0.0/11         # China Mobile Allocation
+39.64.0.0/11         # China Unicom Allocation
+39.128.0.0/10        # China Mobile Allocation
+42.48.0.0/12         # China Telecom Allocation
+42.80.0.0/13         # China Unicom Allocation
+42.120.0.0/14        # Alibaba / China Allocation
+49.64.0.0/11         # China Telecom Allocation
+58.16.0.0/12         # China Unicom / Telecom Allocation
+58.32.0.0/11         # China Telecom Allocation
+58.192.0.0/11        # CERNET China Education Network
+58.240.0.0/12        # China Unicom Allocation
+59.32.0.0/11         # China Telecom Allocation
+59.64.0.0/13         # CERNET China Education Network
+60.0.0.0/11          # China Unicom Allocation
+60.160.0.0/11        # China Telecom Allocation
+101.64.0.0/11        # China Telecom / CERNET Allocation
+106.0.0.0/10         # China Telecom / Baidu / Aliyun Allocation
+110.64.0.0/13        # CERNET China Education Network
+110.80.0.0/13        # China Telecom Allocation
+111.0.0.0/10         # China Mobile National Allocation
+112.0.0.0/10         # China Mobile / Unicom Allocation
+113.0.0.0/11         # China Telecom Allocation
+113.64.0.0/10        # China Telecom Allocation
+114.80.0.0/12        # China Telecom Shanghai/National
+114.216.0.0/13       # China Telecom Allocation
+115.24.0.0/13        # CERNET / Aliyun China
+115.192.0.0/11       # China Telecom Allocation
+116.0.0.0/11         # China Telecom / Unicom Allocation
+117.8.0.0/13         # China Unicom Allocation
+117.64.0.0/11        # China Telecom Allocation
+117.128.0.0/10       # China Mobile Allocation
+119.0.0.0/11         # China Unicom / Telecom Allocation
+119.112.0.0/12       # China Unicom Allocation
+120.192.0.0/10       # China Mobile National Allocation
+121.0.0.0/11         # China (.cn) Backbone / Registry Allocation
+122.64.0.0/11        # China Unicom Allocation
+123.128.0.0/11       # China Unicom Allocation
+125.32.0.0/12        # China Unicom Allocation
+125.64.0.0/11        # China Telecom Allocation
+156.225.111.236/31   # China (.cn) Backbone / Registry Allocation
+156.225.111.238/32   # Resolved .cn endpoint: xinhuanet.com
+175.0.0.0/12         # China Telecom Allocation
+180.96.0.0/11        # China Telecom Allocation
+180.152.0.0/13       # China Telecom Allocation
+182.128.0.0/11       # China Telecom Allocation
+183.0.0.0/10         # China Telecom National Allocation
+183.192.0.0/10       # China Mobile National Allocation
+195.219.8.226/32     # CNNIC .cn Root Nameserver f.dns.cn
+203.119.25.0/24      # CNNIC .cn Root Nameserver a.dns.cn
+203.119.26.0/23      # China (.cn) Backbone / Registry Allocation
+203.119.28.0/23      # China (.cn) Backbone / Registry Allocation
+218.0.0.0/11         # China Telecom / Unicom Allocation
+218.64.0.0/11        # China Telecom Allocation
+218.241.97.0/24      # CNNIC .cn Registry ns.cnnic.cn
+219.128.0.0/11       # China Telecom Allocation
+220.160.0.0/11       # China Telecom Allocation
+221.0.0.0/12         # China Unicom Allocation
+221.192.0.0/10       # China Unicom National Allocation
+222.64.0.0/11        # China Telecom Allocation
+223.64.0.0/11        # China Mobile National Allocation

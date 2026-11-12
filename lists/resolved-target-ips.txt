@@ -1,0 +1,52 @@
+# SecurePC — Live-Resolved IPv4 Addresses for Beijing, .cn, aliyuncs.com, .ru, and .ir Domains
+# Generated: 2026-11-11 17:01:09 UTC
+
+# --- BEIJING ENDPOINTS ---
+110.242.74.102/32	# [BEIJING] baidu.com
+111.63.65.103/32	# [BEIJING] baidu.com
+111.63.65.247/32	# [BEIJING] baidu.com
+124.237.177.164/32	# [BEIJING] baidu.com
+
+# --- ALIYUNCS ENDPOINTS ---
+223.5.5.5/32	# [ALIYUNCS] dns.alidns.com
+223.6.6.6/32	# [ALIYUNCS] dns.alidns.com
+
+# --- CN-DOMAIN ENDPOINTS ---
+156.225.111.236/32	# [CN-DOMAIN] xinhuanet.com
+156.225.111.237/32	# [CN-DOMAIN] xinhuanet.com
+156.225.111.238/32	# [CN-DOMAIN] xinhuanet.com
+
+# --- RU-DOMAIN ENDPOINTS ---
+193.232.128.6/32	# [RU-DOMAIN] a.dns.ripn.net
+194.85.252.62/32	# [RU-DOMAIN] b.dns.ripn.net
+194.190.124.17/32	# [RU-DOMAIN] d.dns.ripn.net
+193.232.142.17/32	# [RU-DOMAIN] e.dns.ripn.net
+193.232.156.17/32	# [RU-DOMAIN] f.dns.ripn.net
+
+# --- IR-DOMAIN ENDPOINTS ---
+193.189.123.2/32	# [IR-DOMAIN] a.nic.ir
+185.147.179.11/32	# [IR-DOMAIN] aparat.com
+185.143.232.200/32	# [IR-DOMAIN] arvancloud.ir
+185.143.233.200/32	# [IR-DOMAIN] arvancloud.ir
+185.143.234.200/32	# [IR-DOMAIN] arvancloud.ir
+185.143.235.200/32	# [IR-DOMAIN] arvancloud.ir
+193.189.122.83/32	# [IR-DOMAIN] b.nic.ir
+45.93.171.206/32	# [IR-DOMAIN] c.nic.ir
+194.225.70.83/32	# [IR-DOMAIN] d.nic.ir
+185.188.104.12/32	# [IR-DOMAIN] digikala.com
+185.188.105.12/32	# [IR-DOMAIN] digikala.com
+185.188.106.12/32	# [IR-DOMAIN] digikala.com
+185.188.107.12/32	# [IR-DOMAIN] digikala.com
+45.157.244.26/32	# [IR-DOMAIN] farsnews.ir
+185.143.233.133/32	# [IR-DOMAIN] irna.ir
+185.143.234.133/32	# [IR-DOMAIN] irna.ir
+194.225.70.16/32	# [IR-DOMAIN] irnic.ir
+185.143.233.133/32	# [IR-DOMAIN] isna.ir
+185.143.234.133/32	# [IR-DOMAIN] isna.ir
+2.188.20.18/32	# [IR-DOMAIN] leader.ir
+185.226.140.140/32	# [IR-DOMAIN] mehrnews.com
+185.226.142.142/32	# [IR-DOMAIN] mehrnews.com
+194.225.70.16/32	# [IR-DOMAIN] nic.ir
+185.143.233.133/32	# [IR-DOMAIN] president.ir
+185.143.234.133/32	# [IR-DOMAIN] president.ir
+

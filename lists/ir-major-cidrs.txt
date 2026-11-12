@@ -1,0 +1,58 @@
+# SecurePC — Major Iran (.ir) Root DNS, National Gateway & Telecom Backbone CIDRs
+# Generated: 2026-11-11 17:01:09 UTC
+# Total CIDR Blocks: 54
+
+2.144.0.0/14         # TCI Iran Telecommunication Backbone (AS58224)
+2.176.0.0/12         # TCI Iran Telecommunication Backbone (AS58224)
+5.22.0.0/17          # Iranian Allocation
+5.52.0.0/16          # DCI / TCI Iran (AS12880)
+5.74.0.0/16          # Iran Telecommunication Company PJS (TCI) (AS58224)
+5.106.0.0/16         # Irancell Mobile Iran (AS44244)
+5.112.0.0/12         # Iran (.ir) Backbone / ISP Allocation
+5.160.0.0/14         # Respina / Iran IDC
+5.200.0.0/14         # TCI Iran (AS58224)
+5.210.0.0/15         # Iran (.ir) Backbone / ISP Allocation
+5.212.0.0/16         # Mobile Communication Company of Iran PLC (MCCI) (AS197207)
+5.215.0.0/16         # Mobile Communication Company of Iran PLC (MCCI) (AS197207)
+5.217.0.0/16         # Mobile Communication Company of Iran PLC (MCCI) (AS197207)
+5.232.0.0/13         # Iranian ISP Allocations
+31.2.128.0/17        # Irancell Iran (AS44244)
+37.32.0.0/16         # ArvanCloud / Iran Data Centers
+37.98.0.0/16         # Irancell Iran (AS44244)
+37.129.0.0/16        # Mobile Communication Company of Iran PLC (MCCI) (AS197207)
+37.156.0.0/16        # ParsOnline / Iran
+37.254.0.0/15        # TCI / MCCI Iran
+45.93.171.206/32     # Resolved .ir endpoint: c.nic.ir
+45.157.244.26/32     # Resolved .ir endpoint: farsnews.ir
+46.100.0.0/15        # Shatel / Iran ISP
+46.224.0.0/15        # TCI Iran
+78.38.0.0/15         # Asiatech / DCI Iran (AS12880)
+79.127.0.0/17        # DCI Iran (AS12880)
+80.191.0.0/16        # DCI Iran (AS12880)
+83.120.0.0/16        # Mobile Communication Company of Iran PLC (MCCI) (AS197207)
+83.123.0.0/16        # Mobile Communication Company of Iran PLC (MCCI) (AS197207)
+85.15.0.0/16         # Shatel Iran (AS31549)
+85.185.0.0/16        # DCI Iran (AS12880)
+86.55.0.0/16         # Mobile Communication Company of Iran PLC (MCCI) (AS197207)
+89.196.0.0/14        # Iran (.ir) Backbone / ISP Allocation
+91.98.0.0/15         # ParsOnline Iran (AS16322)
+91.251.0.0/16        # Iran Allocation
+93.112.0.0/12        # Iran Telecom / Mobile Allocations
+94.182.0.0/15        # Shatel / Asiatech Iran
+151.232.0.0/13       # TCI Iran National Allocation (AS58224)
+178.131.0.0/16       # TCI Iran
+185.143.232.0/22     # ArvanCloud CDN Iran (AS205588)
+185.147.179.11/32    # Resolved .ir endpoint: aparat.com
+185.188.104.12/32    # Resolved .ir endpoint: digikala.com
+185.188.105.12/32    # Resolved .ir endpoint: digikala.com
+185.188.106.12/32    # Resolved .ir endpoint: digikala.com
+185.188.107.12/32    # Resolved .ir endpoint: digikala.com
+185.226.140.140/32   # Resolved .ir endpoint: mehrnews.com
+185.226.142.142/32   # Resolved .ir endpoint: mehrnews.com
+188.158.0.0/15       # TCI Iran (AS58224)
+188.208.0.0/13       # Irancell / Shatel Iran
+193.189.122.0/23     # IRNIC .ir Root DNS & Registry
+194.225.70.16/32     # Resolved .ir endpoint: irnic.ir
+194.225.70.83/32     # Resolved .ir endpoint: d.nic.ir
+204.18.0.0/16        # Mobile Communication Company of Iran PLC (MCCI) (AS197207)
+217.218.0.0/15       # DCI / TIC Iran National Gateway (AS12880/AS48159)
